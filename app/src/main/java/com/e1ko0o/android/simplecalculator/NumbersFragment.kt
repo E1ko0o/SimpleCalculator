@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import com.e1ko0o.android.simplecalculator.databinding.FragmentNumbersBinding
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 private const val TAG = "LOL!"
+// @TODO Ты хорошо поработал, посмотри калькулятор гугла - вывод заранее снизу
 
 class NumbersFragment : Fragment(R.layout.fragment_numbers) {
     private lateinit var binding: FragmentNumbersBinding
@@ -20,24 +22,34 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers) {
         override fun onClick(v: View?) {
             val btn = v?.findViewById<Button>(v.id)
             when (val btnId = btn?.text.toString()) {
-                in "0".."9" -> onNumberClicked(btnId.toInt())
-                "More" -> onShowMoreOperationsClicked()
+                in "0".."9" -> onNumberClicked(btnId.toDouble())
                 "=" -> onResultClicked()
                 "C" -> onClearClicked()
+                "." -> onDotClicked(btnId)
                 else -> onOperationClicked(btnId)
             }
         }
     }
 
-    private fun doMath(operation: String, number: Int) {
-        Log.d(TAG, "$result $operation $number !!!!!!")
-        when (operation.trim()) {
+    private fun doMath() {
+        when (operation.lowercase().trim()) {
+            "%" -> result *=  number / 100
+            "^" -> result = result.pow(number.toInt())
+            "√" -> {
+                result = if (number.toString().contains("-")) {
+                    Toast.makeText(
+                        activity?.applicationContext,
+                        "Can't take the square root of a negative number",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    0.0
+                } else sqrt(number)
+            }
             "+" -> result += number
             "-" -> result -= number
             "*" -> result *= number
-            "/" -> if (number != 0) {
-                result /= number
-            } else {
+            "/" -> if (number.toString() != "0") result /= number
+            else {
                 Toast.makeText(
                     activity?.applicationContext,
                     "Can't divide by zero",
@@ -46,54 +58,69 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers) {
                 result = 0.0
             }
         }
-        Log.d(TAG, "$result $operation $number")
     }
 
-    fun onNumberClicked(number: Int) {
-        if (binding.tvNumber.text.isDigitsOnly()) {
-            binding.tvNumber.append(number.toString())
-            NumbersFragment.number = binding.tvNumber.text.toString().toInt()
+    fun onDotClicked(operation: String) {
+        binding.tvResult.append(operation)
+        binding.tvNumber.append(operation)
+    }
+
+    fun onNumberClicked(number: Double) {
+        val buffer = binding.tvNumber.text.toString().replace(
+            "[+\\-/%*^√]".toRegex(), "") + number.toInt().toString()
+        if (buffer.isNotEmpty()) {
+            if (number.toString().endsWith(".0") || number.toString().endsWith(".")) {
+                binding.tvNumber.append(number.toInt().toString())
+                binding.tvResult.append(number.toInt().toString())
+            } else {
+                binding.tvNumber.append(number.toString())
+                binding.tvResult.append(number.toString())
+            }
+            NumbersFragment.number = buffer.toDouble()
         } else {
-            binding.tvNumber.text = number.toString()
+            if (number.toString().endsWith(".0") || number.toString().endsWith(".")) {
+                binding.tvNumber.text = number.toInt().toString()
+                binding.tvResult.append(number.toInt().toString())
+            } else {
+                binding.tvNumber.text = number.toString()
+                binding.tvResult.append(number.toString())
+            }
             NumbersFragment.number = number
         }
-        binding.tvResult.append(number.toString())
     }
 
     fun onOperationClicked(operation: String) {
-        result = if (binding.tvResult.text.toString().isEmpty())
-            0.0
-        else
-            binding.tvResult.text.toString().toDouble()
-        binding.tvResult.append(operation)
+        if (operation == "√") {
+            binding.tvResult.text = operation + binding.tvResult.text
+            result = if (binding.tvResult.text.toString().drop(1) != "")
+                binding.tvResult.text.toString().drop(1).toDouble()
+            else 0.0
+        } else {
+            binding.tvResult.append(operation)
+            result = if (binding.tvResult.text.toString().dropLast(1) != "")
+                binding.tvResult.text.toString().dropLast(1).toDouble()
+            else 0.0
+        }
         binding.tvNumber.text = operation
-//            if (operation.trim() == ".") {
-//                binding.tvResult.text
-//            }
         NumbersFragment.operation = operation
-    }
-
-    fun onShowMoreOperationsClicked() {
-//            вызывать новый фрагмент
-        Toast.makeText(
-            activity?.applicationContext,
-            "Show more operations",
-            Toast.LENGTH_SHORT
-        )
-            .show()
     }
 
     fun onClearClicked() {
         result = 0.0
-        number = 0
+        number = 0.0
         operation = ""
         binding.tvResult.text = ""
         binding.tvNumber.text = ""
     }
 
     fun onResultClicked() {
-        doMath(operation, number)
-        binding.tvResult.text = result.toString()
+        doMath()
+        number = result
+        if (number.toString().endsWith(".0") || number.toString().endsWith("."))
+            binding.tvResult.text = result.toInt().toString()
+        else
+            binding.tvResult.text = result.toString()
+        binding.tvNumber.text = ""
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -112,8 +139,11 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers) {
             binding.btn9,
             binding.btnDivide,
             binding.btnPlus,
+            binding.btnPow,
+            binding.btnPercent,
+            binding.btnSqrt,
+            binding.btnDot,
             binding.btnMinus,
-            binding.btnMore,
             binding.btnMultiply,
             binding.btnClear,
             binding.btnResult
@@ -128,7 +158,6 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d(TAG, "onCreateView")
         return inflater.inflate(R.layout.fragment_numbers, container, false)
     }
 
@@ -139,6 +168,6 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers) {
 
         private var result: Double = 0.0
         private var operation: String = ""
-        private var number: Int = 0
+        private var number: Double = 0.0
     }
 }

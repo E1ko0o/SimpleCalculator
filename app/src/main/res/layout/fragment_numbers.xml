@@ -7,27 +7,84 @@
 
     <TextView
         android:id="@+id/tvResult"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:lines="2"
+        android:maxLines="2"
         android:textAlignment="textEnd"
         android:textColor="@color/black"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvNumber"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:maxLines="2"
         android:textAlignment="textEnd"
         android:textColor="@color/black"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvResult" />
+
+    <Button
+        android:id="@+id/btnPercent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="%"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn7"
+        app:layout_constraintEnd_toStartOf="@+id/btnPow"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnPow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="^"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/btnSqrt"
+        app:layout_constraintStart_toEndOf="@+id/btnPercent"
+        app:layout_constraintTop_toTopOf="@+id/btnPercent" />
+
+    <Button
+        android:id="@+id/btnSqrt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="√"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/btnMultiply"
+        app:layout_constraintStart_toEndOf="@+id/btnPow"
+        app:layout_constraintTop_toTopOf="@+id/btnPercent" />
+
+    <Button
+        android:id="@+id/btnMultiply"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="*"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSqrt"
+        app:layout_constraintTop_toTopOf="@+id/btnPercent" />
 
     <Button
         android:id="@+id/btn1"
@@ -35,10 +92,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/teal_200"
         android:text="1"
-        app:layout_constraintBottom_toTopOf="@+id/btn4"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btnClear"
         app:layout_constraintEnd_toStartOf="@+id/btn2"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -46,9 +104,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:backgroundTint="@color/teal_200"
         android:text="2"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/btn3"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn1"
         app:layout_constraintTop_toTopOf="@+id/btn1" />
 
@@ -57,9 +116,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:backgroundTint="@color/teal_200"
         android:text="3"
-        app:layout_constraintEnd_toStartOf="@+id/btnDivide"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlus"
         app:layout_constraintStart_toEndOf="@+id/btn2"
         app:layout_constraintTop_toTopOf="@+id/btn1" />
 
@@ -69,11 +129,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/teal_700"
         android:text="/"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn3"
-        app:layout_constraintTop_toTopOf="@+id/btn1" />
+        app:layout_constraintStart_toEndOf="@+id/btn9"
+        app:layout_constraintTop_toTopOf="@+id/btn7" />
 
     <Button
         android:id="@+id/btn4"
@@ -81,10 +142,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/teal_200"
         android:text="4"
-        app:layout_constraintBottom_toTopOf="@+id/btn7"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btn1"
         app:layout_constraintEnd_toStartOf="@+id/btn5"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -92,9 +154,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:backgroundTint="@color/teal_200"
         android:text="5"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/btn6"
-        app:layout_constraintHorizontal_bias="0.5"
+
         app:layout_constraintStart_toEndOf="@+id/btn4"
         app:layout_constraintTop_toTopOf="@+id/btn4" />
 
@@ -103,21 +167,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:backgroundTint="@color/teal_200"
         android:text="6"
-        app:layout_constraintEnd_toStartOf="@+id/btnMultiply"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/btnMinus"
         app:layout_constraintStart_toEndOf="@+id/btn5"
         app:layout_constraintTop_toTopOf="@+id/btn4" />
 
     <Button
-        android:id="@+id/btnMultiply"
+        android:id="@+id/btnMinus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
-        android:text="*"
+        android:backgroundTint="@color/teal_700"
+        android:text="-"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn6"
         app:layout_constraintTop_toTopOf="@+id/btn4" />
 
@@ -127,10 +193,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/teal_200"
         android:text="7"
-        app:layout_constraintBottom_toTopOf="@+id/btnMinus"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btn4"
         app:layout_constraintEnd_toStartOf="@+id/btn8"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -138,9 +205,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:backgroundTint="@color/teal_200"
         android:text="8"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/btn9"
-        app:layout_constraintHorizontal_bias="0.5"
+
         app:layout_constraintStart_toEndOf="@+id/btn7"
         app:layout_constraintTop_toTopOf="@+id/btn7" />
 
@@ -149,9 +218,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:backgroundTint="@color/teal_200"
         android:text="9"
-        app:layout_constraintEnd_toStartOf="@+id/btnPlus"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/btnDivide"
         app:layout_constraintStart_toEndOf="@+id/btn8"
         app:layout_constraintTop_toTopOf="@+id/btn7" />
 
@@ -161,22 +231,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/teal_700"
         android:text="+"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn9"
-        app:layout_constraintTop_toTopOf="@+id/btn7" />
+        app:layout_constraintStart_toEndOf="@+id/btn3"
+        app:layout_constraintTop_toTopOf="@+id/btn1" />
 
     <Button
-        android:id="@+id/btnMinus"
+        android:id="@+id/btnClear"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="32dp"
-        android:text="-"
-        app:layout_constraintBottom_toTopOf="@+id/btnMore"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/red"
+        android:text="C"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn0"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -184,11 +256,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:backgroundTint="@color/teal_200"
         android:text="0"
-        app:layout_constraintEnd_toStartOf="@+id/btnClear"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnMinus"
-        app:layout_constraintTop_toTopOf="@+id/btnMinus" />
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/btnDot"
+
+        app:layout_constraintStart_toEndOf="@+id/btnClear"
+        app:layout_constraintTop_toTopOf="@+id/btnClear" />
 
     <Button
         android:id="@+id/btnResult"
@@ -196,32 +270,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/teal_700"
         android:text="="
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnClear"
-        app:layout_constraintTop_toTopOf="@id/btnMinus" />
+        app:layout_constraintStart_toEndOf="@+id/btnDot"
+        app:layout_constraintTop_toTopOf="@id/btnClear" />
 
     <Button
-        android:id="@+id/btnClear"
+        android:id="@+id/btnDot"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="C"
+        android:backgroundTint="@color/teal_700"
+        android:text="."
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/btnResult"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn0"
-        app:layout_constraintTop_toTopOf="@+id/btnMinus" />
+        app:layout_constraintTop_toTopOf="@+id/btnClear" />
 
-    <Button
-        android:id="@+id/btnMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="More"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
