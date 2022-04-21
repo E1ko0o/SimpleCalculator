@@ -12,8 +12,6 @@ A little explanation of project:
 
 | Element | I use |
 |:-------:|:-----:|
-
-[comment]: <> (| Architecture | MVVM |)
 | Main language | Kotlin |
 | UI | XML |
 | Saving state | ViewModel + Bundle |

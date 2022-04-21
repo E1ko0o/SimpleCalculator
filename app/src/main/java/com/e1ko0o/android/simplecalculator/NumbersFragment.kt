@@ -1,22 +1,22 @@
 package com.e1ko0o.android.simplecalculator
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.e1ko0o.android.simplecalculator.databinding.FragmentNumbersBinding
+import com.e1ko0o.android.simplecalculator.databinding.FragmentNumbersLinearBinding
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 private const val TAG = "LOL!"
-// @TODO Ты хорошо поработал, посмотри калькулятор гугла - вывод заранее снизу
+// @TODO Ты хорошо поработал, посмотри калькулятор гугла или windows на компе
+// кроме того, переработай уи: сделай кнопки больше, = сделай на 2 линии, добавь кнопки стереть, e, pi
 
-class NumbersFragment : Fragment(R.layout.fragment_numbers) {
-    private lateinit var binding: FragmentNumbersBinding
+class NumbersFragment : Fragment(R.layout.fragment_numbers_constraint) {
+    private lateinit var binding: FragmentNumbersLinearBinding
 
     private inner class Controller : View.OnClickListener {
         override fun onClick(v: View?) {
@@ -125,7 +125,7 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentNumbersBinding.bind(view)
+        binding = FragmentNumbersLinearBinding.bind(view)
         val list: List<Button> = listOf(
             binding.btn0,
             binding.btn1,
@@ -158,7 +158,8 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_numbers, container, false)
+        return inflater.inflate(R.layout.fragment_numbers_linear, container, false)
+//        return inflater.inflate(R.layout.fragment_numbers_constraint, container, false)
     }
 
     companion object {
