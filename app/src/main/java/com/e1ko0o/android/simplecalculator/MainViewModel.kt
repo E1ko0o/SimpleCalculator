@@ -36,14 +36,23 @@ class MainViewModel : ViewModel() {
     }
 
     fun onNumberClicked(number: Double) {
-        val ld = liveDataForResult.value.toString()
+        // @TODO когда подряд нажимаешь 2 цифры, то сначала выполняется с первой цифрой, потом со второй, а не со всем числом разом
+        val ld = liveDataForResult.value.toString().lowercase()
         val buffer = ld.replace("[+\\-/%*^√(?!null)]".toRegex(), "") + number.toString()
-        if (buffer == number.toString()) {
+        if (buffer == number.toString() && ld != "null") {
             if (buffer.endsWith(".0")) {
                 liveDataForResult.value += number.toInt().toString()
                 liveDataForNumber.value = number.toInt().toString()
             } else {
                 liveDataForResult.value += number.toString()
+                liveDataForNumber.value = number.toString()
+            }
+        } else if (buffer == number.toString() && ld == "null") {
+            if (buffer.endsWith(".0")) {
+                liveDataForResult.value = number.toInt().toString()
+                liveDataForNumber.value = number.toInt().toString()
+            } else {
+                liveDataForResult.value = number.toString()
                 liveDataForNumber.value = number.toString()
             }
         } else {
@@ -55,6 +64,7 @@ class MainViewModel : ViewModel() {
                 liveDataForNumber.value += number.toString()
             }
         }
+
         this.number = number
         doMath()
     }
