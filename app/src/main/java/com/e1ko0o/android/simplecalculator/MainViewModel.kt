@@ -1,10 +1,12 @@
 package com.e1ko0o.android.simplecalculator
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+private const val TAG = "LOL!"
 class MainViewModel : ViewModel() {
     val liveDataForResult = MutableLiveData<String>()
     val liveDataForNumber = MutableLiveData<String>()
@@ -36,37 +38,38 @@ class MainViewModel : ViewModel() {
     }
 
     fun onNumberClicked(number: Double) {
-        // @TODO когда подряд нажимаешь 2 цифры, то сначала выполняется с первой цифрой, потом со второй, а не со всем числом разом
-        val ld = liveDataForResult.value.toString().lowercase()
-        val buffer = ld.replace("[+\\-/%*^√(?!null)]".toRegex(), "") + number.toString()
-        if (buffer == number.toString() && ld != "null") {
-            if (buffer.endsWith(".0")) {
-                liveDataForResult.value += number.toInt().toString()
-                liveDataForNumber.value = number.toInt().toString()
-            } else {
+        val liveDataString = liveDataForResult.value.toString().lowercase()
+        val ptr = "[+\\-/%*^√(?!null)]".toRegex()
+        val ptrToRemove = liveDataString.dropLastWhile { !ptr.matches(it.toString()) }
+        val lastNum = liveDataString.replace(ptrToRemove, "") + number.toInt().toString()
+        if (lastNum == number.toInt().toString() && liveDataString != "null") {
+            if (lastNum.contains(".")) {
                 liveDataForResult.value += number.toString()
                 liveDataForNumber.value = number.toString()
-            }
-        } else if (buffer == number.toString() && ld == "null") {
-            if (buffer.endsWith(".0")) {
-                liveDataForResult.value = number.toInt().toString()
-                liveDataForNumber.value = number.toInt().toString()
             } else {
+                liveDataForResult.value += number.toInt().toString()
+                liveDataForNumber.value = number.toInt().toString()
+            }
+        } else if (lastNum == number.toInt().toString() && liveDataString == "null") {
+            if (lastNum.contains(".")) {
                 liveDataForResult.value = number.toString()
                 liveDataForNumber.value = number.toString()
+            } else {
+                liveDataForResult.value = number.toInt().toString()
+                liveDataForNumber.value = number.toInt().toString()
             }
         } else {
-            if (buffer.endsWith(".0")) {
-                liveDataForResult.value += number.toInt().toString()
-                liveDataForNumber.value += number.toInt().toString()
-            } else {
+            if (lastNum.contains(".")) {
                 liveDataForResult.value += number.toString()
                 liveDataForNumber.value += number.toString()
+            } else {
+                liveDataForResult.value += number.toInt().toString()
+                liveDataForNumber.value += number.toInt().toString()
             }
         }
-
-        this.number = number
-        doMath()
+        //@todo основная логика работает, но выводятся лишние точки
+        this.number = lastNum.toDouble()
+//        doMath()
     }
 
     fun onOperationClicked(operation: String) {
@@ -81,10 +84,11 @@ class MainViewModel : ViewModel() {
         }
         liveDataForNumber.value = ""
         this.operation = operation
+        result = number
     }
 
     fun onResultClicked() { //@todo test
-//        doMath()
+        doMath()
         number = result
         if (number.toString().endsWith(".0")) {
             liveDataForResult.value = result.toInt().toString()
