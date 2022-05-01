@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:layout_weight="1"
+        android:layout_weight="0.4"
         android:lines="2"
         android:maxLines="2"
         android:textAlignment="textEnd"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:layout_weight="1"
+        android:layout_weight="0.4"
         android:lines="2"
         android:maxLines="2"
         android:textAlignment="textEnd"
@@ -34,6 +34,32 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnPI"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/teal_700"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="PI"
+            android:textColor="@color/white"
+            app:cornerRadius="0dp" />
+
+        <Button
+            android:id="@+id/btnE"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/teal_700"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="E"
+            android:textColor="@color/white"
+            app:cornerRadius="0dp" />
 
         <Button
             android:id="@+id/btnPercent"
@@ -49,9 +75,29 @@
             app:cornerRadius="0dp" />
 
         <Button
-            android:id="@+id/btnPow"
+            android:id="@+id/btnDeleteLastSymbol"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/red"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="⌫"
+            android:textColor="@color/white"
+            app:cornerRadius="0dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnPow"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/teal_700"
@@ -64,7 +110,7 @@
         <Button
             android:id="@+id/btnSqrt"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/teal_700"
@@ -77,13 +123,26 @@
         <Button
             android:id="@+id/btnDivide"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/teal_700"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="/"
+            android:textColor="@color/white"
+            app:cornerRadius="0dp" />
+
+        <Button
+            android:id="@+id/btnMultiply"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/teal_700"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="*"
             android:textColor="@color/white"
             app:cornerRadius="0dp" />
     </LinearLayout>
@@ -134,7 +193,7 @@
             app:cornerRadius="0dp" />
 
         <Button
-            android:id="@+id/btnMultiply"
+            android:id="@+id/btnMinus"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -142,7 +201,7 @@
             android:backgroundTint="@color/teal_700"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="*"
+            android:text="-"
             android:textColor="@color/white"
             app:cornerRadius="0dp" />
     </LinearLayout>
@@ -193,65 +252,6 @@
             app:cornerRadius="0dp" />
 
         <Button
-            android:id="@+id/btnMinus"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/teal_700"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="-"
-            android:textColor="@color/white"
-            app:cornerRadius="0dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn1"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/teal_200"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="1"
-            android:textColor="@color/black"
-            app:cornerRadius="0dp" />
-
-        <Button
-            android:id="@+id/btn2"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/teal_200"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="2"
-            android:textColor="@color/black"
-            app:cornerRadius="0dp" />
-
-        <Button
-            android:id="@+id/btn3"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/teal_200"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="3"
-            android:textColor="@color/black"
-            app:cornerRadius="0dp" />
-
-        <Button
             android:id="@+id/btnPlus"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
@@ -267,48 +267,108 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnClear"
-            style="?android:attr/buttonBarButtonStyle"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/red"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="C"
-            android:textColor="@color/white"
-            app:cornerRadius="0dp" />
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn0"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/teal_200"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="0"
-            android:textColor="@color/black"
-            app:cornerRadius="0dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnDot"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/teal_700"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="."
-            android:textColor="@color/white"
-            app:cornerRadius="0dp" />
+                <Button
+                    android:id="@+id/btn1"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/teal_200"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    app:cornerRadius="0dp" />
+
+                <Button
+                    android:id="@+id/btn2"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/teal_200"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="2"
+                    android:textColor="@color/black"
+                    app:cornerRadius="0dp" />
+
+                <Button
+                    android:id="@+id/btn3"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/teal_200"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="3"
+                    android:textColor="@color/black"
+                    app:cornerRadius="0dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnClear"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/red"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="C"
+                    android:textColor="@color/white"
+                    app:cornerRadius="0dp" />
+
+                <Button
+                    android:id="@+id/btn0"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/teal_200"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    app:cornerRadius="0dp" />
+
+                <Button
+                    android:id="@+id/btnDot"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/teal_700"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="."
+                    android:textColor="@color/white"
+                    app:cornerRadius="0dp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnResult"

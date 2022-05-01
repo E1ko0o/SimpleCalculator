@@ -3,9 +3,8 @@ One of my training pet-projects.
 ## What is the project about
 It's simple calculator.
 
-App contains 1 screen with 2 fragments:
+App contains 1 screen with 1 fragment:
 1. Numbers with default operations
-2. Extra operations
 
 ## Technology stack
 A little explanation of project:
@@ -14,7 +13,7 @@ A little explanation of project:
 |:-------:|:-----:|
 | Main language | Kotlin |
 | UI | XML |
-| Saving state | ViewModel + Bundle |
+| Saving state | LiveData |
 | Binding | ViewBinding |
 
 ## Training skills
@@ -23,3 +22,4 @@ A little explanation of project:
     * Fragments
     * Lifecycles + saving state
     * ViewModel
+    * LiveData

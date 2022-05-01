@@ -1,12 +1,10 @@
 package com.e1ko0o.android.simplecalculator
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-private const val TAG = "LOL!"
 class MainViewModel : ViewModel() {
     val liveDataForResult = MutableLiveData<String>()
     val liveDataForNumber = MutableLiveData<String>()
@@ -26,9 +24,11 @@ class MainViewModel : ViewModel() {
             "/" -> result /= number
             else -> result = number
         }
-        if (result.toString().endsWith(".0"))
+        result = String.format("%.9f", result).toDouble()
+        if (result.toString().endsWith(".0")) {
             liveDataForNumber.value = result.toInt().toString()
-        else
+            result = result.toInt().toDouble()
+        } else
             liveDataForNumber.value = result.toString()
     }
 
@@ -39,37 +39,36 @@ class MainViewModel : ViewModel() {
 
     fun onNumberClicked(number: Double) {
         val liveDataString = liveDataForResult.value.toString().lowercase()
-        val ptr = "[+\\-/%*^√(?!null)]".toRegex()
+        val ptr = "[+\\-/%*^√(?!nul)]".toRegex()
         val ptrToRemove = liveDataString.dropLastWhile { !ptr.matches(it.toString()) }
-        val lastNum = liveDataString.replace(ptrToRemove, "") + number.toInt().toString()
-        if (lastNum == number.toInt().toString() && liveDataString != "null") {
-            if (lastNum.contains(".")) {
-                liveDataForResult.value += number.toString()
-                liveDataForNumber.value = number.toString()
-            } else {
+        var lastFullNumber = liveDataString.replace(ptrToRemove, "")
+        if (number != kotlin.math.E && number != kotlin.math.PI) {
+             lastFullNumber += number.toInt().toString()
+            if (lastFullNumber == number.toInt().toString() && liveDataString != "null") {
                 liveDataForResult.value += number.toInt().toString()
                 liveDataForNumber.value = number.toInt().toString()
-            }
-        } else if (lastNum == number.toInt().toString() && liveDataString == "null") {
-            if (lastNum.contains(".")) {
-                liveDataForResult.value = number.toString()
-                liveDataForNumber.value = number.toString()
-            } else {
+            } else if (lastFullNumber == number.toInt().toString() && liveDataString == "null") {
                 liveDataForResult.value = number.toInt().toString()
                 liveDataForNumber.value = number.toInt().toString()
-            }
-        } else {
-            if (lastNum.contains(".")) {
-                liveDataForResult.value += number.toString()
-                liveDataForNumber.value += number.toString()
             } else {
                 liveDataForResult.value += number.toInt().toString()
                 liveDataForNumber.value += number.toInt().toString()
             }
+            this.number = lastFullNumber.toDouble()
+        } else {
+            lastFullNumber += number.toString()
+            if (lastFullNumber == number.toString() && liveDataString != "null") {
+                liveDataForResult.value += number.toString()
+                liveDataForNumber.value = number.toString()
+            } else if (lastFullNumber == number.toString() && liveDataString == "null") {
+                liveDataForResult.value = number.toString()
+                liveDataForNumber.value = number.toString()
+            } else {
+                liveDataForResult.value += number.toString()
+                liveDataForNumber.value += number.toString()
+            }
+            this.number = lastFullNumber.toDouble()
         }
-        //@todo основная логика работает, но выводятся лишние точки
-        this.number = lastNum.toDouble()
-//        doMath()
     }
 
     fun onOperationClicked(operation: String) {
@@ -87,7 +86,7 @@ class MainViewModel : ViewModel() {
         result = number
     }
 
-    fun onResultClicked() { //@todo test
+    fun onResultClicked() {
         doMath()
         number = result
         if (number.toString().endsWith(".0")) {
@@ -105,5 +104,32 @@ class MainViewModel : ViewModel() {
         operation = ""
         liveDataForResult.value = ""
         liveDataForNumber.value = ""
+    }
+
+    fun onDeleteLastSymbolClicked() {
+        if (liveDataForResult.value == null) {
+            onClearClicked()
+            return
+        }
+        if (liveDataForResult.value.toString().isNotEmpty()
+            && liveDataForResult.value != null
+        ) {
+            val resultWithoutLastSymbol = liveDataForResult.value.toString().dropLast(1)
+            liveDataForResult.value = resultWithoutLastSymbol
+        }
+        if (liveDataForNumber.value.toString().isNotEmpty()
+            && liveDataForNumber.value != null
+        ) {
+            val numberWithoutLastSymbol = liveDataForNumber.value.toString().dropLast(1)
+            liveDataForNumber.value = numberWithoutLastSymbol
+        }
+    }
+
+    fun onEClicked() {
+        onNumberClicked(kotlin.math.E)
+    }
+
+    fun onPIClicked() {
+        onNumberClicked(kotlin.math.PI)
     }
 }

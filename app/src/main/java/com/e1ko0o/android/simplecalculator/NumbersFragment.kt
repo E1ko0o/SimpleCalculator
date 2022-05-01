@@ -9,10 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.e1ko0o.android.simplecalculator.databinding.FragmentNumbersLinearBinding
 
-private const val TAG = "LOL!"
-// @TODO Ты хорошо поработал, посмотри калькулятор гугла или windows на компе
-// кроме того, переработай уи: сделай кнопки больше, = сделай на 2 линии, добавь кнопки стереть, e, pi
-
 class NumbersFragment : Fragment(R.layout.fragment_numbers_constraint) {
     private lateinit var binding: FragmentNumbersLinearBinding
     private lateinit var mainViewModel: MainViewModel
@@ -25,6 +21,9 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers_constraint) {
                 "=" -> mainViewModel.onResultClicked()
                 "C" -> mainViewModel.onClearClicked()
                 "." -> mainViewModel.onDotClicked(btnId)
+                "⌫" -> mainViewModel.onDeleteLastSymbolClicked()
+                "E" -> mainViewModel.onEClicked()
+                "PI" -> mainViewModel.onPIClicked()
                 else -> mainViewModel.onOperationClicked(btnId)
             }
         }
@@ -46,6 +45,9 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers_constraint) {
             binding.btn8,
             binding.btn9,
             binding.btnDivide,
+            binding.btnE,
+            binding.btnPI,
+            binding.btnDeleteLastSymbol,
             binding.btnPlus,
             binding.btnPow,
             binding.btnPercent,
