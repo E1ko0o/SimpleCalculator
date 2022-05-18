@@ -28,6 +28,9 @@ class MainViewModel : ViewModel() {
         if (result.toString().endsWith(".0")) {
             liveDataForNumber.value = result.toInt().toString()
             result = result.toInt().toDouble()
+        }
+        else if (result.toString().contains('E')) {
+            liveDataForNumber.value = result.toBigDecimal().toString()
         } else
             liveDataForNumber.value = result.toString()
     }
