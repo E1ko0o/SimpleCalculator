@@ -25,14 +25,16 @@ class MainViewModel : ViewModel() {
             else -> result = number
         }
         result = String.format("%.9f", result).toDouble()
-        if (result.toString().endsWith(".0")) {
-            liveDataForNumber.value = result.toInt().toString()
-            result = result.toInt().toDouble()
+        when {
+            result.toString().endsWith(".0") -> {
+                liveDataForResult.value = result.toInt().toString()
+                result = result.toInt().toDouble()
+            }
+            result.toString().contains('E') -> {
+                liveDataForResult.value = result.toBigDecimal().toString()
+            }
+            else -> liveDataForResult.value = result.toString()
         }
-        else if (result.toString().contains('E')) {
-            liveDataForNumber.value = result.toBigDecimal().toString()
-        } else
-            liveDataForNumber.value = result.toString()
     }
 
     fun onDotClicked(dot: String) {
@@ -46,7 +48,7 @@ class MainViewModel : ViewModel() {
         val ptrToRemove = liveDataString.dropLastWhile { !ptr.matches(it.toString()) }
         var lastFullNumber = liveDataString.replace(ptrToRemove, "")
         if (number != kotlin.math.E && number != kotlin.math.PI) {
-             lastFullNumber += number.toInt().toString()
+            lastFullNumber += number.toInt().toString()
             if (lastFullNumber == number.toInt().toString() && liveDataString != "null") {
                 liveDataForResult.value += number.toInt().toString()
                 liveDataForNumber.value = number.toInt().toString()
@@ -77,12 +79,14 @@ class MainViewModel : ViewModel() {
     fun onOperationClicked(operation: String) {
         if (operation == "√") {
             liveDataForResult.value = operation + result.toString()
-            result = if (result.toString().dropLast(1) != "") result.toString().dropLast(1)
-                .toDouble() else 0.0
+            result = if (result.toString().dropLast(1) != "" && !result.toString().contains("E"))
+                result.toString().dropLast(1).toDouble()
+            else 0.0
         } else {
             liveDataForResult.value += operation
-            result = if (result.toString().dropLast(1) != "") result.toString().dropLast(1)
-                .toDouble() else 0.0
+            result = if (result.toString().dropLast(1) != "" && !result.toString().contains("E"))
+                result.toString().dropLast(1).toDouble()
+            else 0.0
         }
         liveDataForNumber.value = ""
         this.operation = operation
@@ -92,13 +96,7 @@ class MainViewModel : ViewModel() {
     fun onResultClicked() {
         doMath()
         number = result
-        if (number.toString().endsWith(".0")) {
-            liveDataForResult.value = result.toInt().toString()
-            liveDataForNumber.value = ""
-        } else {
-            liveDataForResult.value = result.toString()
-            liveDataForNumber.value = ""
-        }
+        liveDataForNumber.value = ""
     }
 
     fun onClearClicked() {
