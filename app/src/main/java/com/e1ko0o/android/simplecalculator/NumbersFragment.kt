@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.e1ko0o.android.simplecalculator.databinding.FragmentNumbersLinearBinding
+import com.e1ko0o.android.simplecalculator.databinding.FragmentNumbersBinding
 
-class NumbersFragment : Fragment(R.layout.fragment_numbers_constraint) {
-    private lateinit var binding: FragmentNumbersLinearBinding
+class NumbersFragment : Fragment(R.layout.fragment_numbers) {
+    private lateinit var binding: FragmentNumbersBinding
     private lateinit var mainViewModel: MainViewModel
 
     private inner class Controller : View.OnClickListener {
@@ -31,7 +31,7 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers_constraint) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentNumbersLinearBinding.bind(view)
+        binding = FragmentNumbersBinding.bind(view)
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         val list: List<Button> = listOf(
             binding.btn0,
@@ -74,12 +74,17 @@ class NumbersFragment : Fragment(R.layout.fragment_numbers_constraint) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_numbers_linear, container, false)
+        return inflater.inflate(R.layout.fragment_numbers, container, false)
 //        return inflater.inflate(R.layout.fragment_numbers_constraint, container, false)
     }
 
     companion object {
-        fun newInstance(): NumbersFragment {
+        private var instance: NumbersFragment? = null
+
+        fun getInstance(): NumbersFragment {
+            instance?.let {
+                return it
+            }
             return NumbersFragment()
         }
     }
